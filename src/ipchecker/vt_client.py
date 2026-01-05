@@ -13,6 +13,7 @@ class VTIPReputation:
     suspicious: int
     harmless: int
     undetected: int
+    timeout: int 
     raw: dict[str, Any]
 
 
