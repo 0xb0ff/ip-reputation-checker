@@ -21,7 +21,7 @@ Small CLI tool to check an IP address reputation using:
 
 ```bash
 git clone https://github.com/0xb0ff/ip-reputation-checker.git
-cd ipchecker
+cd ip-reputation-checker
 
 python -m venv .venv
 source .venv/bin/activate
