@@ -13,10 +13,6 @@ class VTIPReputation:
     suspicious: int
     harmless: int
     undetected: int
-    timeout: int
-    as_owner: Optional[str]
-    country: Optional[str]
-    last_analysis_date: Optional[int]
     raw: dict[str, Any]
 
 
@@ -33,8 +29,8 @@ class VirusTotalIPClient:
         with vt.Client(self.api_key, timeout=self.timeout) as client:
             obj = client.get_object(f"/ip_addresses/{ip}")
 
-        attrs = getattr(obj, "attributes", {}) or {}
-        stats = attrs.get("last_analysis_stats", {}) or {}
+        # obj est un objet vt-py; on récupère attributes
+        stats = obj.last_analysis_stats
 
         return VTIPReputation(
             ip=ip,
@@ -43,8 +39,5 @@ class VirusTotalIPClient:
             harmless=int(stats.get("harmless", 0)),
             undetected=int(stats.get("undetected", 0)),
             timeout=int(stats.get("timeout", 0)),
-            as_owner=attrs.get("as_owner"),
-            country=attrs.get("country"),
-            last_analysis_date=attrs.get("last_analysis_date"),
-            raw=attrs,
+            raw=stats,
         )
