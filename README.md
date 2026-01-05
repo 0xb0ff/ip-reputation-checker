@@ -18,7 +18,7 @@ Small CLI tool to check an IP address reputation using:
 - An **AbuseIPDB** API key
 - A **VirusTotal** API key
 
-## Install (from source)
+## Install (from source) (venv)
 
 ```bash
 git clone https://github.com/0xb0ff/ip-reputation-checker.git
@@ -30,6 +30,27 @@ source .venv/bin/activate
 pip install -U pip
 pip install -e .
 ```
+
+## Install (from source) (global)
+
+From the project root directory:
+```bash
+git clone https://github.com/0xb0ff/ip-reputation-checker.git
+cd ip-reputation-checker
+pipx install .
+```
+
+Verify installation:
+```bash
+which ipchecker
+ipchecker 8.8.8.8
+```
+
+Expected path:
+```
+~/.local/bin/ipchecker
+```
+---
 
 ## Configure API keys
 
