@@ -1,3 +1,5 @@
+![Screenshot](https://github.com/0xb0ff/ip-reputation-checker/blob/main/assets/Screenshot.png)
+
 # IPChecker (AbuseIPDB + VirusTotal)
 
 Small CLI tool to check an IP address reputation using:
