@@ -3,13 +3,15 @@ from dataclasses import dataclass
 
 @dataclass(frozen=True)
 class VTVerdict:
-    verdict: str          # LOW_RISK / MEDIUM_RISK / HIGH_RISK / INSUFFICIENT_DATA
-    confidence: str       # LOW / MEDIUM / HIGH
-    score: int            # 0..100 (indicative)
+    verdict: str  # LOW_RISK / MEDIUM_RISK / HIGH_RISK / INSUFFICIENT_DATA
+    confidence: str  # LOW / MEDIUM / HIGH
+    score: int  # 0..100 (indicative)
     reason: str
 
 
-def vt_verdict(malicious: int, suspicious: int, harmless: int, undetected: int, timeout: int) -> VTVerdict:
+def vt_verdict(
+    malicious: int, suspicious: int, harmless: int, undetected: int, timeout: int
+) -> VTVerdict:
     m = max(0, int(malicious))
     s = max(0, int(suspicious))
     h = max(0, int(harmless))

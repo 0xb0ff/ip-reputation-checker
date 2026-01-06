@@ -26,7 +26,9 @@ class AbuseIPDBResult:
 class AbuseIPDBClient:
     """AbuseIPDB API v2 client (check endpoint)."""
 
-    def __init__(self, api_key: str, base_url: str = "https://api.abuseipdb.com/api/v2", timeout: int = 10):
+    def __init__(
+        self, api_key: str, base_url: str = "https://api.abuseipdb.com/api/v2", timeout: int = 10
+    ):
         if not api_key:
             raise ValueError("Missing AbuseIPDB API key (ABUSEIPDB_API_KEY).")
         self.api_key = api_key
@@ -44,7 +46,11 @@ class AbuseIPDBClient:
 
     def check_ip(self, ip: str, max_age_days: int = 90, verbose: bool = False) -> AbuseIPDBResult:
         url = f"{self.base_url}/check"
-        params = {"ipAddress": ip, "maxAgeInDays": max_age_days, "verbose": "true" if verbose else "false"}
+        params = {
+            "ipAddress": ip,
+            "maxAgeInDays": max_age_days,
+            "verbose": "true" if verbose else "false",
+        }
 
         try:
             r = self.session.get(url, params=params, timeout=self.timeout)

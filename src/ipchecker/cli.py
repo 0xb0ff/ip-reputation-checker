@@ -18,7 +18,9 @@ def build_parser() -> argparse.ArgumentParser:
         description="Check IP reputation using AbuseIPDB (API v2) and VirusTotal (API v3)."
     )
     p.add_argument("ip", help="IP address to check (e.g., 8.8.8.8)")
-    p.add_argument("--max-age", type=int, default=90, help="Maximum report age (days) [default: 90]")
+    p.add_argument(
+        "--max-age", type=int, default=90, help="Maximum report age (days) [default: 90]"
+    )
     p.add_argument("--verbose", action="store_true", help="Include more details from the API")
     p.add_argument("--json", action="store_true", help="Raw JSON output (data)")
     p.add_argument("--timeout", type=int, default=10, help="HTTP timeout in seconds [default: 10]")
@@ -74,11 +76,12 @@ def print_human(abu: AbuseIPDBResult, vt: Optional[VTIPReputation]) -> None:
         suspicious=vt.suspicious,
         harmless=vt.harmless,
         undetected=vt.undetected,
-        timeout=vt.timeout
+        timeout=vt.timeout,
     )
-    print(f"\rVirusTotal Verdict:           {vt.verdict} (confidence={vt.confidence}, score={vt.score})")
+    print(
+        f"\rVirusTotal Verdict:           {vt.verdict} (confidence={vt.confidence}, score={vt.score})"
+    )
     print(f"\rVT Reason:                    {vt.reason}")
-
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -91,18 +94,26 @@ def main(argv: list[str] | None = None) -> int:
         return 2
 
     if not args.abuseip_api_key:
-        print("Error: missing AbuseIPDB API key. Set ABUSEIPDB_API_KEY or use --abuseip-api-key.", file=sys.stderr)
+        print(
+            "Error: missing AbuseIPDB API key. Set ABUSEIPDB_API_KEY or use --abuseip-api-key.",
+            file=sys.stderr,
+        )
         return 2
 
     if not args.virustotal_api_key:
-        print("Error: missing VirusTotal API key. Set VIRUSTOTAL_API_KEY or use --virustotal-api-key.", file=sys.stderr)
+        print(
+            "Error: missing VirusTotal API key. Set VIRUSTOTAL_API_KEY or use --virustotal-api-key.",
+            file=sys.stderr,
+        )
         return 2
 
     try:
         abuse = AbuseIPDBClient(api_key=args.abuseip_api_key, timeout=args.timeout)
         abu_res = abuse.check_ip(args.ip, max_age_days=args.max_age, verbose=args.verbose)
 
-        vt_client = VirusTotalIPClient(api_key=args.virustotal_api_key, timeout=max(1, args.timeout))
+        vt_client = VirusTotalIPClient(
+            api_key=args.virustotal_api_key, timeout=max(1, args.timeout)
+        )
         vt_res = vt_client.check_ip(args.ip)
 
     except Exception as e:
@@ -110,7 +121,11 @@ def main(argv: list[str] | None = None) -> int:
         return 1
 
     if args.json:
-        print(json.dumps({"abuseipdb": abu_res.raw, "virustotal": vt_res.raw}, indent=2, ensure_ascii=False))
+        print(
+            json.dumps(
+                {"abuseipdb": abu_res.raw, "virustotal": vt_res.raw}, indent=2, ensure_ascii=False
+            )
+        )
     else:
         print_human(abu_res, vt_res)
 
