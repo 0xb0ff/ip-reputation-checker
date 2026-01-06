@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Optional
+from typing import Any
 
 import vt  # pip install vt-py
 
@@ -13,7 +13,7 @@ class VTIPReputation:
     suspicious: int
     harmless: int
     undetected: int
-    timeout: int 
+    timeout: int
     raw: dict[str, Any]
 
 
