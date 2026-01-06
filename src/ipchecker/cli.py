@@ -50,7 +50,7 @@ def print_human(abu: AbuseIPDBResult, vt: Optional[VTIPReputation]) -> None:
     print(f"\tTotal reports: {abu.total_reports if abu.total_reports is not None else '-'}")
     print(f"\tLast reported: {abu.last_reported_at or '-'}")
 
-    print("\r\n########## VirusTotal ##########\r\n")
+    print("\r\n########## VirusTotals ##########\r\n")
     if vt is None:
         print("\tVirusTotal:    unavailable")
         return
