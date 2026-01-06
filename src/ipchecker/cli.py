@@ -69,7 +69,7 @@ def print_human(abu: AbuseIPDBResult, vt: Optional[VTIPReputation]) -> None:
     else:
         ipr_verdict = "LOW RISK"
 
-    print(f"\r\nIP Reputation:              {ipr_verdict}")
+    print(f"\r\nIP Reputation:                {ipr_verdict}")
 
     vt = vt_verdict(
         malicious=vt.malicious,
